@@ -7,7 +7,7 @@ Cross platform GStreamer C# bindings library with all required binaries included
 
 ## About
 
-Original GStreamer C# bindings are available at [GstSharp](https://gitlab.freedesktop.org/gstreamer/gstreamer/-/tree/main/subprojects/gstreamer-sharp). This project is a variant of the original library with the following changes:
+Original GStreamer C# bindings are available at [GstSharp](https://gitlab.freedesktop.org/gstreamer/gstreamer/-/tree/main/subprojects/gstreamer-sharp). Our project is a variant of the original library with the following changes:
 - .NET 8 and later is supported.
 - NativeAOT and trimming are supported.
 - All required binaries are included in the packages.
