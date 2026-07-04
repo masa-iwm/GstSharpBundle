@@ -84,7 +84,18 @@ class GstCheckTest(MesonTest):
     def get_valgrind_suppressions(self):
         result = super().get_valgrind_suppressions()
         result.extend(get_gst_build_valgrind_suppressions())
-        result.append("/usr/share/glib-2.0/valgrind/glib.supp")
+
+        env = super().get_subproc_env()
+        data_home = env.get('XDG_DATA_HOME', '').split(os.pathsep) or [os.path.expanduser('~/.local/share')]
+        data_dirs = env.get('XDG_DATA_DIRS', '').split(os.pathsep) or ['/usr/local/share', '/usr/share']
+
+        for dir in data_home + data_dirs:
+            supp_file = os.path.join(dir, "glib-2.0/valgrind/glib.supp")
+            if os.path.isfile(supp_file):
+                result.append(supp_file)
+                break
+        else:
+            self.error("Failed to find \"glib.supp\" in any XDG_DATA_DIRS or XDG_DATA_HOME subdirectories.")
 
         return result
 
@@ -218,17 +229,15 @@ class MesonTestsManager(TestsManager):
                 self.rebuilt = True
                 return True
 
-            ninja = shutil.which('ninja')
-            if not ninja:
-                ninja = shutil.which('ninja-build')
-            if not ninja:
-                printc("Can't find ninja, can't rebuild test.\n", Colors.FAIL)
+            meson = shutil.which('meson')
+            if not meson:
+                printc("Can't find meson, can't rebuild test.\n", Colors.FAIL)
                 self.rebuilt = False
                 return False
 
             print("-> Rebuilding %s.\n" % bdir)
             try:
-                subprocess.check_call([ninja, '-C', bdir])
+                subprocess.check_call([meson, 'compile', '-C', bdir])
             except subprocess.CalledProcessError:
                 self.rebuilt = False
                 return False

@@ -236,16 +236,6 @@ namespace Gst {
 			}
 		}
 
-		[GLib.Signal("pad-removed")]
-		public event Gst.PadRemovedHandler PadRemoved {
-			add {
-				this.AddSignalHandler ("pad-removed", value, typeof (Gst.PadRemovedArgs));
-			}
-			remove {
-				this.RemoveSignalHandler ("pad-removed", value);
-			}
-		}
-
 		[GLib.Signal("pad-added")]
 		public event Gst.PadAddedHandler PadAdded {
 			add {
@@ -253,6 +243,16 @@ namespace Gst {
 			}
 			remove {
 				this.RemoveSignalHandler ("pad-added", value);
+			}
+		}
+
+		[GLib.Signal("pad-removed")]
+		public event Gst.PadRemovedHandler PadRemoved {
+			add {
+				this.AddSignalHandler ("pad-removed", value, typeof (Gst.PadRemovedArgs));
+			}
+			remove {
+				this.RemoveSignalHandler ("pad-removed", value);
 			}
 		}
 
@@ -1417,6 +1417,7 @@ namespace Gst {
 		[DllImport("gstreamer-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
 		static extern IntPtr gst_element_state_change_return_get_name(int state_ret);
 
+		[Obsolete]
 		public static string StateChangeReturnGetName(Gst.StateChangeReturn state_ret) {
 			IntPtr raw_ret = gst_element_state_change_return_get_name((int) state_ret);
 			string ret = GLib.Marshaller.Utf8PtrToString (raw_ret);
@@ -1426,6 +1427,7 @@ namespace Gst {
 		[DllImport("gstreamer-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
 		static extern IntPtr gst_element_state_get_name(int state);
 
+		[Obsolete]
 		public static string StateGetName(Gst.State state) {
 			IntPtr raw_ret = gst_element_state_get_name((int) state);
 			string ret = GLib.Marshaller.Utf8PtrToString (raw_ret);
@@ -1488,6 +1490,7 @@ namespace Gst {
 		[DllImport("gstreamer-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
 		static extern void gst_element_call_async(IntPtr raw, GstSharp.ElementCallAsyncFuncNative func, IntPtr user_data, GLib.DestroyNotify destroy_notify);
 
+		[Obsolete]
 		public void CallAsync(Gst.ElementCallAsyncFunc func) {
 			GstSharp.ElementCallAsyncFuncWrapper func_wrapper = new GstSharp.ElementCallAsyncFuncWrapper (func);
 			IntPtr user_data;

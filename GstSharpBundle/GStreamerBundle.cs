@@ -24,8 +24,9 @@ public static class GStreamerBundle
     private static string MakeRuntimeIdentifier()
     {
         var architecture = RuntimeInformation.ProcessArchitecture;
-
+#if NET
         if (OperatingSystem.IsWindows())
+#endif
         {
             switch (architecture)
             {
@@ -37,7 +38,7 @@ public static class GStreamerBundle
                     return "win-arm64";
             }
         }
-
+#if NET
         if (OperatingSystem.IsLinux())
         {
             switch (architecture)
@@ -82,7 +83,7 @@ public static class GStreamerBundle
                     return "android-arm64";
             }
         }
-        
+#endif
         throw new PlatformNotSupportedException();
     }
 

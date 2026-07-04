@@ -17,8 +17,8 @@
 # Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
 # Boston, MA 02110-1301, USA.
 
-LIBDIR = r'C:/projects/repos/cerbero.git/1.24/build/dist/msvc_x86_64/lib'
-DATADIR = r'C:/projects/repos/cerbero.git/1.24/build/dist/msvc_x86_64/share'
-BUILDDIR = r'C:\projects\repos\cerbero.git\1.24\build\sources\msvc_x86_64\gst-devtools-1.0-1.24.3\_builddir'
-SRCDIR = r'C:\projects\repos\cerbero.git\1.24\build\sources\msvc_x86_64\gst-devtools-1.0-1.24.3'
-GST_VALIDATE_TESTSUITE_VERSION = '1.24'
+LIBDIR = r'C:/projects/repos/cerbero.git/1.28/build/dist/msvc_x86_64/lib'
+DATADIR = r'C:/projects/repos/cerbero.git/1.28/build/dist/msvc_x86_64/share'
+BUILDDIR = r'C:\projects\repos\cerbero.git\1.28\build\sources\msvc_x86_64\gst-devtools-1.0-1.28.4\b'
+SRCDIR = r'C:\projects\repos\cerbero.git\1.28\build\sources\msvc_x86_64\gst-devtools-1.0-1.28.4'
+GST_VALIDATE_TESTSUITE_VERSION = '1.28'

@@ -136,6 +136,17 @@ namespace Gst {
 		}
 
 		[DllImport("gstreamer-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
+		static extern void gst_caps_id_str_set_value(IntPtr raw, IntPtr field, IntPtr value);
+
+		public void IdStrSetValue(Gst.IdStr field, GLib.Value value) {
+			IntPtr native_field = GLib.Marshaller.StructureToPtrAlloc (field);
+			IntPtr native_value = GLib.Marshaller.StructureToPtrAlloc (value);
+			gst_caps_id_str_set_value(Handle, native_field, native_value);
+			Marshal.FreeHGlobal (native_field);
+			Marshal.FreeHGlobal (native_value);
+		}
+
+		[DllImport("gstreamer-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
 		static extern IntPtr gst_caps_intersect(IntPtr raw, IntPtr caps2);
 
 		public Gst.Caps Intersect(Gst.Caps caps2) {
@@ -256,6 +267,26 @@ namespace Gst {
 		}
 
 		[DllImport("gstreamer-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
+		static extern bool gst_caps_is_writable(IntPtr raw);
+
+		public new bool IsWritable { 
+			get {
+				bool raw_ret = gst_caps_is_writable(Handle);
+				bool ret = raw_ret;
+				return ret;
+			}
+		}
+
+		[DllImport("gstreamer-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
+		static extern IntPtr gst_caps_make_writable(IntPtr raw);
+
+		public Gst.Caps MakeWritable() {
+			IntPtr raw_ret = gst_caps_make_writable(Handle);
+			Gst.Caps ret = raw_ret == IntPtr.Zero ? null : (Gst.Caps) GLib.Opaque.GetOpaque (raw_ret, typeof (Gst.Caps), true);
+			return ret;
+		}
+
+		[DllImport("gstreamer-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
 		static extern bool gst_caps_map_in_place(IntPtr raw, GstSharp.CapsMapFuncNative func, IntPtr user_data);
 
 		public bool MapInPlace(Gst.CapsMapFunc func) {
@@ -362,6 +393,17 @@ namespace Gst {
 		}
 
 		[DllImport("gstreamer-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
+		static extern void gst_caps_set_value_static_str(IntPtr raw, IntPtr field, IntPtr value);
+
+		public void SetValueStaticStr(string field, GLib.Value value) {
+			IntPtr native_field = GLib.Marshaller.StringToPtrGStrdup (field);
+			IntPtr native_value = GLib.Marshaller.StructureToPtrAlloc (value);
+			gst_caps_set_value_static_str(Handle, native_field, native_value);
+			GLib.Marshaller.Free (native_field);
+			Marshal.FreeHGlobal (native_value);
+		}
+
+		[DllImport("gstreamer-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
 		static extern IntPtr gst_caps_simplify(IntPtr raw);
 
 		public Gst.Caps Simplify() {
@@ -435,6 +477,27 @@ namespace Gst {
 			IntPtr native_media_type = GLib.Marshaller.StringToPtrGStrdup (media_type);
 			Raw = gst_caps_new_empty_simple(native_media_type);
 			GLib.Marshaller.Free (native_media_type);
+		}
+
+		[DllImport("gstreamer-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
+		static extern IntPtr gst_caps_new_id_str_empty_simple(IntPtr media_type);
+
+		public Caps (Gst.IdStr media_type) : base (IntPtr.Zero)
+		{
+			IntPtr native_media_type = GLib.Marshaller.StructureToPtrAlloc (media_type);
+			Raw = gst_caps_new_id_str_empty_simple(native_media_type);
+			Marshal.FreeHGlobal (native_media_type);
+		}
+
+		[DllImport("gstreamer-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
+		static extern IntPtr gst_caps_new_static_str_empty_simple(IntPtr media_type);
+
+		public static Caps NewStaticStrEmptySimple(string media_type)
+		{
+			IntPtr native_media_type = GLib.Marshaller.StringToPtrGStrdup (media_type);
+			Caps result = new Caps (gst_caps_new_static_str_empty_simple(native_media_type));
+			GLib.Marshaller.Free (native_media_type);
+			return result;
 		}
 
 		[DllImport("gstreamer-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]

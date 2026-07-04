@@ -344,11 +344,6 @@ int main (int argc, char *argv[]) {
 	g_print("\"sizeof(GstStructure)\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) sizeof(GstStructure));
 	g_print("\"GstStructure.type\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) G_STRUCT_OFFSET(GstStructure, type));
 	g_print("\"GstStructure.name\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) G_STRUCT_OFFSET(GstStructure, name));
-	g_print("\"sizeof(GstTypeFind)\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) sizeof(GstTypeFind));
-	g_print("\"GstTypeFind.peek\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) G_STRUCT_OFFSET(GstTypeFind, peek));
-	g_print("\"GstTypeFind.suggest\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) G_STRUCT_OFFSET(GstTypeFind, suggest));
-	g_print("\"GstTypeFind.data\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) G_STRUCT_OFFSET(GstTypeFind, data));
-	g_print("\"GstTypeFind.get_length\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) G_STRUCT_OFFSET(GstTypeFind, get_length));
 	g_print("\"sizeof(GstAppSinkClass)\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) sizeof(GstAppSinkClass));
 	g_print("\"GstAppSinkClass.eos\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) G_STRUCT_OFFSET(GstAppSinkClass, eos));
 	g_print("\"GstAppSinkClass.new_preroll\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) G_STRUCT_OFFSET(GstAppSinkClass, new_preroll));
@@ -494,6 +489,7 @@ int main (int argc, char *argv[]) {
 	g_print("\"GstAudioRingBuffer.may_start\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) G_STRUCT_OFFSET(GstAudioRingBuffer, may_start));
 	g_print("\"GstAudioRingBuffer.active\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) G_STRUCT_OFFSET(GstAudioRingBuffer, active));
 	g_print("\"GstAudioRingBuffer.cb_data_notify\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) G_STRUCT_OFFSET(GstAudioRingBuffer, cb_data_notify));
+	g_print("\"GstAudioRingBuffer.priv\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) G_STRUCT_OFFSET(GstAudioRingBuffer, priv));
 	g_print("\"sizeof(GstAudioSinkClass)\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) sizeof(GstAudioSinkClass));
 	g_print("\"GstAudioSinkClass.open\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) G_STRUCT_OFFSET(GstAudioSinkClass, open));
 	g_print("\"GstAudioSinkClass.prepare\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) G_STRUCT_OFFSET(GstAudioSinkClass, prepare));
@@ -1021,6 +1017,7 @@ int main (int argc, char *argv[]) {
 	g_print("\"GstWebRTCICEClass.get_local_candidates\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) G_STRUCT_OFFSET(GstWebRTCICEClass, get_local_candidates));
 	g_print("\"GstWebRTCICEClass.get_remote_candidates\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) G_STRUCT_OFFSET(GstWebRTCICEClass, get_remote_candidates));
 	g_print("\"GstWebRTCICEClass.get_selected_pair\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) G_STRUCT_OFFSET(GstWebRTCICEClass, get_selected_pair));
+	g_print("\"GstWebRTCICEClass.close\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) G_STRUCT_OFFSET(GstWebRTCICEClass, close));
 	g_print("\"sizeof(GstWebRTCICE)\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) sizeof(GstWebRTCICE));
 	g_print("\"GstWebRTCICE.ice_gathering_state\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) G_STRUCT_OFFSET(GstWebRTCICE, ice_gathering_state));
 	g_print("\"GstWebRTCICE.ice_connection_state\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) G_STRUCT_OFFSET(GstWebRTCICE, ice_connection_state));
@@ -1033,6 +1030,7 @@ int main (int argc, char *argv[]) {
 	g_print("\"GstWebRTCICEStream.stream_id\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) G_STRUCT_OFFSET(GstWebRTCICEStream, stream_id));
 	g_print("\"sizeof(GstWebRTCICETransportClass)\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) sizeof(GstWebRTCICETransportClass));
 	g_print("\"GstWebRTCICETransportClass.gather_candidates\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) G_STRUCT_OFFSET(GstWebRTCICETransportClass, gather_candidates));
+	g_print("\"GstWebRTCICETransportClass.get_selected_candidate_pair\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) G_STRUCT_OFFSET(GstWebRTCICETransportClass, get_selected_candidate_pair));
 	g_print("\"sizeof(GstWebRTCICETransport)\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) sizeof(GstWebRTCICETransport));
 	g_print("\"GstWebRTCICETransport.role\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) G_STRUCT_OFFSET(GstWebRTCICETransport, role));
 	g_print("\"GstWebRTCICETransport.component\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) G_STRUCT_OFFSET(GstWebRTCICETransport, component));
@@ -1134,6 +1132,7 @@ int main (int argc, char *argv[]) {
 	g_print("\"GstRTSPOnvifMedia.priv\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) G_STRUCT_OFFSET(GstRTSPOnvifMedia, priv));
 	g_print("\"sizeof(GstRTSPOnvifMediaFactoryClass)\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) sizeof(GstRTSPOnvifMediaFactoryClass));
 	g_print("\"GstRTSPOnvifMediaFactoryClass.has_backchannel_support\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) G_STRUCT_OFFSET(GstRTSPOnvifMediaFactoryClass, has_backchannel_support));
+	g_print("\"GstRTSPOnvifMediaFactoryClass.create_backchannel_stream\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) G_STRUCT_OFFSET(GstRTSPOnvifMediaFactoryClass, create_backchannel_stream));
 	g_print("\"sizeof(GstRTSPOnvifMediaFactory)\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) sizeof(GstRTSPOnvifMediaFactory));
 	g_print("\"GstRTSPOnvifMediaFactory.priv\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) G_STRUCT_OFFSET(GstRTSPOnvifMediaFactory, priv));
 	g_print("\"sizeof(GstRTSPOnvifServerClass)\": \"%" G_GUINT64_FORMAT "\"\n", (guint64) sizeof(GstRTSPOnvifServerClass));

@@ -52,11 +52,48 @@ namespace Gst.App {
 		}
 
 		[DllImport("gstapp-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
+		static extern ulong gst_app_sink_get_current_level_buffers(IntPtr raw);
+
+		[GLib.Property ("current-level-buffers")]
+		public ulong CurrentLevelBuffers {
+			get  {
+				ulong raw_ret = gst_app_sink_get_current_level_buffers(Handle);
+				ulong ret = raw_ret;
+				return ret;
+			}
+		}
+
+		[DllImport("gstapp-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
+		static extern ulong gst_app_sink_get_current_level_bytes(IntPtr raw);
+
+		[GLib.Property ("current-level-bytes")]
+		public ulong CurrentLevelBytes {
+			get  {
+				ulong raw_ret = gst_app_sink_get_current_level_bytes(Handle);
+				ulong ret = raw_ret;
+				return ret;
+			}
+		}
+
+		[DllImport("gstapp-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
+		static extern ulong gst_app_sink_get_current_level_time(IntPtr raw);
+
+		[GLib.Property ("current-level-time")]
+		public ulong CurrentLevelTime {
+			get  {
+				ulong raw_ret = gst_app_sink_get_current_level_time(Handle);
+				ulong ret = raw_ret;
+				return ret;
+			}
+		}
+
+		[DllImport("gstapp-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
 		static extern bool gst_app_sink_get_drop(IntPtr raw);
 
 		[DllImport("gstapp-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
 		static extern void gst_app_sink_set_drop(IntPtr raw, bool drop);
 
+		[Obsolete]
 		[GLib.Property ("drop")]
 		public bool Drop {
 			get  {
@@ -66,6 +103,16 @@ namespace Gst.App {
 			}
 			set  {
 				gst_app_sink_set_drop(Handle, value);
+			}
+		}
+
+		[GLib.Property ("dropped")]
+		public ulong Dropped {
+			get {
+				GLib.Value val = GetProperty ("dropped");
+				ulong ret = (ulong) val;
+				val.Dispose ();
+				return ret;
 			}
 		}
 
@@ -98,6 +145,34 @@ namespace Gst.App {
 			}
 		}
 
+		[GLib.Property ("in")]
+		public ulong In {
+			get {
+				GLib.Value val = GetProperty ("in");
+				ulong ret = (ulong) val;
+				val.Dispose ();
+				return ret;
+			}
+		}
+
+		[DllImport("gstapp-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
+		static extern int gst_app_sink_get_leaky_type(IntPtr raw);
+
+		[DllImport("gstapp-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
+		static extern void gst_app_sink_set_leaky_type(IntPtr raw, int leaky);
+
+		[GLib.Property ("leaky-type")]
+		public Gst.App.AppLeakyType LeakyType {
+			get  {
+				int raw_ret = gst_app_sink_get_leaky_type(Handle);
+				Gst.App.AppLeakyType ret = (Gst.App.AppLeakyType) raw_ret;
+				return ret;
+			}
+			set  {
+				gst_app_sink_set_leaky_type(Handle, (int) value);
+			}
+		}
+
 		[DllImport("gstapp-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
 		static extern uint gst_app_sink_get_max_buffers(IntPtr raw);
 
@@ -113,6 +188,67 @@ namespace Gst.App {
 			}
 			set  {
 				gst_app_sink_set_max_buffers(Handle, value);
+			}
+		}
+
+		[DllImport("gstapp-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
+		static extern ulong gst_app_sink_get_max_bytes(IntPtr raw);
+
+		[DllImport("gstapp-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
+		static extern void gst_app_sink_set_max_bytes(IntPtr raw, ulong max);
+
+		[GLib.Property ("max-bytes")]
+		public ulong MaxBytes {
+			get  {
+				ulong raw_ret = gst_app_sink_get_max_bytes(Handle);
+				ulong ret = raw_ret;
+				return ret;
+			}
+			set  {
+				gst_app_sink_set_max_bytes(Handle, value);
+			}
+		}
+
+		[DllImport("gstapp-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
+		static extern ulong gst_app_sink_get_max_time(IntPtr raw);
+
+		[DllImport("gstapp-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
+		static extern void gst_app_sink_set_max_time(IntPtr raw, ulong max);
+
+		[GLib.Property ("max-time")]
+		public ulong MaxTime {
+			get  {
+				ulong raw_ret = gst_app_sink_get_max_time(Handle);
+				ulong ret = raw_ret;
+				return ret;
+			}
+			set  {
+				gst_app_sink_set_max_time(Handle, value);
+			}
+		}
+
+		[GLib.Property ("out")]
+		public ulong Out {
+			get {
+				GLib.Value val = GetProperty ("out");
+				ulong ret = (ulong) val;
+				val.Dispose ();
+				return ret;
+			}
+		}
+
+		[GLib.Property ("silent")]
+		public bool Silent {
+			get {
+				GLib.Value val = GetProperty ("silent");
+				bool ret = (bool) val;
+				val.Dispose ();
+				return ret;
+			}
+			set {
+				GLib.Value val = new GLib.Value(value);
+				SetProperty("silent", val);
+				val.Dispose ();
 			}
 		}
 
@@ -134,13 +270,53 @@ namespace Gst.App {
 			}
 		}
 
-		[GLib.Signal("try-pull-object")]
-		public event Gst.App.TryPullObjectEventHandler TryPullObjectEvent {
+		[GLib.Signal("try-pull-sample")]
+		public event Gst.App.TryPullSampleEventHandler TryPullSampleEvent {
 			add {
-				this.AddSignalHandler ("try-pull-object", value, typeof (Gst.App.TryPullObjectEventArgs));
+				this.AddSignalHandler ("try-pull-sample", value, typeof (Gst.App.TryPullSampleEventArgs));
 			}
 			remove {
-				this.RemoveSignalHandler ("try-pull-object", value);
+				this.RemoveSignalHandler ("try-pull-sample", value);
+			}
+		}
+
+		[GLib.Signal("new-serialized-event")]
+		public event Gst.App.NewSerializedEventHandler NewSerializedEvent {
+			add {
+				this.AddSignalHandler ("new-serialized-event", value, typeof (Gst.App.NewSerializedEventArgs));
+			}
+			remove {
+				this.RemoveSignalHandler ("new-serialized-event", value);
+			}
+		}
+
+		[GLib.Signal("new-preroll")]
+		public event Gst.App.NewPrerollHandler NewPreroll {
+			add {
+				this.AddSignalHandler ("new-preroll", value, typeof (Gst.App.NewPrerollArgs));
+			}
+			remove {
+				this.RemoveSignalHandler ("new-preroll", value);
+			}
+		}
+
+		[GLib.Signal("eos")]
+		public event System.EventHandler Eos {
+			add {
+				this.AddSignalHandler ("eos", value);
+			}
+			remove {
+				this.RemoveSignalHandler ("eos", value);
+			}
+		}
+
+		[GLib.Signal("try-pull-preroll")]
+		public event Gst.App.TryPullPrerollEventHandler TryPullPrerollEvent {
+			add {
+				this.AddSignalHandler ("try-pull-preroll", value, typeof (Gst.App.TryPullPrerollEventArgs));
+			}
+			remove {
+				this.RemoveSignalHandler ("try-pull-preroll", value);
 			}
 		}
 
@@ -164,53 +340,13 @@ namespace Gst.App {
 			}
 		}
 
-		[GLib.Signal("eos")]
-		public event System.EventHandler Eos {
+		[GLib.Signal("try-pull-object")]
+		public event Gst.App.TryPullObjectEventHandler TryPullObjectEvent {
 			add {
-				this.AddSignalHandler ("eos", value);
+				this.AddSignalHandler ("try-pull-object", value, typeof (Gst.App.TryPullObjectEventArgs));
 			}
 			remove {
-				this.RemoveSignalHandler ("eos", value);
-			}
-		}
-
-		[GLib.Signal("try-pull-sample")]
-		public event Gst.App.TryPullSampleEventHandler TryPullSampleEvent {
-			add {
-				this.AddSignalHandler ("try-pull-sample", value, typeof (Gst.App.TryPullSampleEventArgs));
-			}
-			remove {
-				this.RemoveSignalHandler ("try-pull-sample", value);
-			}
-		}
-
-		[GLib.Signal("new-preroll")]
-		public event Gst.App.NewPrerollHandler NewPreroll {
-			add {
-				this.AddSignalHandler ("new-preroll", value, typeof (Gst.App.NewPrerollArgs));
-			}
-			remove {
-				this.RemoveSignalHandler ("new-preroll", value);
-			}
-		}
-
-		[GLib.Signal("try-pull-preroll")]
-		public event Gst.App.TryPullPrerollEventHandler TryPullPrerollEvent {
-			add {
-				this.AddSignalHandler ("try-pull-preroll", value, typeof (Gst.App.TryPullPrerollEventArgs));
-			}
-			remove {
-				this.RemoveSignalHandler ("try-pull-preroll", value);
-			}
-		}
-
-		[GLib.Signal("new-serialized-event")]
-		public event Gst.App.NewSerializedEventHandler NewSerializedEvent {
-			add {
-				this.AddSignalHandler ("new-serialized-event", value, typeof (Gst.App.NewSerializedEventArgs));
-			}
-			remove {
-				this.RemoveSignalHandler ("new-serialized-event", value);
+				this.RemoveSignalHandler ("try-pull-object", value);
 			}
 		}
 
@@ -799,6 +935,15 @@ namespace Gst.App {
 		}
 
 		[DllImport("gstapp-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
+		static extern IntPtr gst_app_sink_pull_object(IntPtr raw);
+
+		public Gst.MiniObject PullObject() {
+			IntPtr raw_ret = gst_app_sink_pull_object(Handle);
+			Gst.MiniObject ret = raw_ret == IntPtr.Zero ? null : (Gst.MiniObject) GLib.Opaque.GetOpaque (raw_ret, typeof (Gst.MiniObject), true);
+			return ret;
+		}
+
+		[DllImport("gstapp-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
 		static extern IntPtr gst_app_sink_pull_preroll(IntPtr raw);
 
 		public Gst.Sample PullPreroll() {
@@ -813,6 +958,26 @@ namespace Gst.App {
 		public Gst.Sample PullSample() {
 			IntPtr raw_ret = gst_app_sink_pull_sample(Handle);
 			Gst.Sample ret = raw_ret == IntPtr.Zero ? null : (Gst.Sample) GLib.Opaque.GetOpaque (raw_ret, typeof (Gst.Sample), true);
+			return ret;
+		}
+
+		[DllImport("gstapp-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
+		static extern void gst_app_sink_set_simple_callbacks(IntPtr raw, IntPtr value);
+
+		public Gst.App.AppSinkSimpleCallbacks SimpleCallbacks { 
+			set {
+				IntPtr native_value = GLib.Marshaller.StructureToPtrAlloc (value);
+				gst_app_sink_set_simple_callbacks(Handle, native_value);
+				Marshal.FreeHGlobal (native_value);
+			}
+		}
+
+		[DllImport("gstapp-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
+		static extern IntPtr gst_app_sink_try_pull_object(IntPtr raw, ulong timeout);
+
+		public Gst.MiniObject TryPullObject(ulong timeout) {
+			IntPtr raw_ret = gst_app_sink_try_pull_object(Handle, timeout);
+			Gst.MiniObject ret = raw_ret == IntPtr.Zero ? null : (Gst.MiniObject) GLib.Opaque.GetOpaque (raw_ret, typeof (Gst.MiniObject), true);
 			return ret;
 		}
 

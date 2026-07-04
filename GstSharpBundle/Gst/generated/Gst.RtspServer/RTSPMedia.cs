@@ -335,6 +335,16 @@ namespace Gst.RtspServer {
 			}
 		}
 
+		[GLib.Signal("target-state")]
+		public event Gst.RtspServer.TargetStateHandler TargetState {
+			add {
+				this.AddSignalHandler ("target-state", value, typeof (Gst.RtspServer.TargetStateArgs));
+			}
+			remove {
+				this.RemoveSignalHandler ("target-state", value);
+			}
+		}
+
 		[GLib.Signal("new-state")]
 		public event Gst.RtspServer.NewStateHandler NewState {
 			add {
@@ -342,36 +352,6 @@ namespace Gst.RtspServer {
 			}
 			remove {
 				this.RemoveSignalHandler ("new-state", value);
-			}
-		}
-
-		[GLib.Signal("unprepared")]
-		public event System.EventHandler Unprepared {
-			add {
-				this.AddSignalHandler ("unprepared", value);
-			}
-			remove {
-				this.RemoveSignalHandler ("unprepared", value);
-			}
-		}
-
-		[GLib.Signal("removed-stream")]
-		public event Gst.RtspServer.RemovedStreamHandler RemovedStream {
-			add {
-				this.AddSignalHandler ("removed-stream", value, typeof (Gst.RtspServer.RemovedStreamArgs));
-			}
-			remove {
-				this.RemoveSignalHandler ("removed-stream", value);
-			}
-		}
-
-		[GLib.Signal("new-stream")]
-		public event Gst.RtspServer.NewStreamHandler NewStream {
-			add {
-				this.AddSignalHandler ("new-stream", value, typeof (Gst.RtspServer.NewStreamArgs));
-			}
-			remove {
-				this.RemoveSignalHandler ("new-stream", value);
 			}
 		}
 
@@ -385,6 +365,36 @@ namespace Gst.RtspServer {
 			}
 		}
 
+		[GLib.Signal("removed-stream")]
+		public event Gst.RtspServer.RemovedStreamHandler RemovedStream {
+			add {
+				this.AddSignalHandler ("removed-stream", value, typeof (Gst.RtspServer.RemovedStreamArgs));
+			}
+			remove {
+				this.RemoveSignalHandler ("removed-stream", value);
+			}
+		}
+
+		[GLib.Signal("unprepared")]
+		public event System.EventHandler Unprepared {
+			add {
+				this.AddSignalHandler ("unprepared", value);
+			}
+			remove {
+				this.RemoveSignalHandler ("unprepared", value);
+			}
+		}
+
+		[GLib.Signal("new-stream")]
+		public event Gst.RtspServer.NewStreamHandler NewStream {
+			add {
+				this.AddSignalHandler ("new-stream", value, typeof (Gst.RtspServer.NewStreamArgs));
+			}
+			remove {
+				this.RemoveSignalHandler ("new-stream", value);
+			}
+		}
+
 		[GLib.Signal("handle-message")]
 		public event Gst.RtspServer.HandleMessageHandler HandleMessage {
 			add {
@@ -392,16 +402,6 @@ namespace Gst.RtspServer {
 			}
 			remove {
 				this.RemoveSignalHandler ("handle-message", value);
-			}
-		}
-
-		[GLib.Signal("target-state")]
-		public event Gst.RtspServer.TargetStateHandler TargetState {
-			add {
-				this.AddSignalHandler ("target-state", value, typeof (Gst.RtspServer.TargetStateArgs));
-			}
-			remove {
-				this.RemoveSignalHandler ("target-state", value);
 			}
 		}
 

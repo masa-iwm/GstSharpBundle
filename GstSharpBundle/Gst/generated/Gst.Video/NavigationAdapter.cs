@@ -205,6 +205,15 @@ namespace Gst.Video {
 		}
 
 		[DllImport("gstvideo-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
+		static extern IntPtr gst_navigation_event_new_mouse_double_click(int button, double x, double y, int state);
+
+		public static Gst.Event EventNewMouseDoubleClick(int button, double x, double y, Gst.Video.NavigationModifierType state) {
+			IntPtr raw_ret = gst_navigation_event_new_mouse_double_click(button, x, y, (int) state);
+			Gst.Event ret = raw_ret == IntPtr.Zero ? null : (Gst.Event) GLib.Opaque.GetOpaque (raw_ret, typeof (Gst.Event), true);
+			return ret;
+		}
+
+		[DllImport("gstvideo-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
 		static extern IntPtr gst_navigation_event_new_mouse_move(double x, double y, int state);
 
 		public static Gst.Event EventNewMouseMove(double x, double y, Gst.Video.NavigationModifierType state) {
@@ -290,11 +299,13 @@ namespace Gst.Video {
 		}
 
 		[DllImport("gstvideo-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
-		static extern bool gst_navigation_event_parse_modifier_state(IntPtr evnt, int state);
+		static extern bool gst_navigation_event_parse_modifier_state(IntPtr evnt, out int state);
 
-		public static bool EventParseModifierState(Gst.Event evnt, Gst.Video.NavigationModifierType state) {
-			bool raw_ret = gst_navigation_event_parse_modifier_state(evnt == null ? IntPtr.Zero : evnt.Handle, (int) state);
+		public static bool EventParseModifierState(Gst.Event evnt, out Gst.Video.NavigationModifierType state) {
+			int native_state;
+			bool raw_ret = gst_navigation_event_parse_modifier_state(evnt == null ? IntPtr.Zero : evnt.Handle, out native_state);
 			bool ret = raw_ret;
+			state = (Gst.Video.NavigationModifierType) native_state;
 			return ret;
 		}
 

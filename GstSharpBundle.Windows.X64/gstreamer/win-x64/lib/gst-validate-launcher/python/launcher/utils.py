@@ -215,7 +215,7 @@ def launch_command(command, color=None, fails=False):
 
 
 def path2url(path):
-    return urllib.parse.urljoin('file:', urllib.request.pathname2url(path))
+    return urllib.parse.urljoin('file://', urllib.request.pathname2url(path))
 
 
 def is_windows():
@@ -385,6 +385,7 @@ class BackTraceGenerator(Loggable):
             self.warning(e)
             self.coredumpctl = None
         self.gdb = shutil.which('gdb')
+        self.lldb = shutil.which('lldb')
 
     @classmethod
     def get_default(cls):
@@ -404,8 +405,21 @@ class BackTraceGenerator(Loggable):
                    " supported way to get backtraces for now.")
         return None
 
+    def get_trace_on_running_process_with_lldb(self, test):
+        lldb = ['lldb', '-o', 'bt all', '-o', 'quit', '-p', str(test.process.pid)]
+
+        try:
+            return subprocess.check_output(
+                lldb, stderr=subprocess.STDOUT, timeout=30).decode()
+        except Exception as e:
+            return "Could not run `lldb` on process (pid: %d):\n%s" % (
+                test.process.pid, e)
+
     def get_trace_on_running_process(self, test):
         if not self.gdb:
+            if self.lldb:
+                return self.get_trace_on_running_process_with_lldb(test)
+
             return "Can not generate stack trace as `gdb` is not" \
                 "installed."
 

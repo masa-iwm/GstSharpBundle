@@ -59,16 +59,6 @@ namespace Gst.PbUtils {
 			}
 		}
 
-		[GLib.Signal("discovered")]
-		public event Gst.PbUtils.DiscoveredHandler Discovered {
-			add {
-				this.AddSignalHandler ("discovered", value, typeof (Gst.PbUtils.DiscoveredArgs));
-			}
-			remove {
-				this.RemoveSignalHandler ("discovered", value);
-			}
-		}
-
 		[GLib.Signal("source-setup")]
 		public event Gst.PbUtils.SourceSetupHandler SourceSetup {
 			add {
@@ -86,6 +76,16 @@ namespace Gst.PbUtils {
 			}
 			remove {
 				this.RemoveSignalHandler ("finished", value);
+			}
+		}
+
+		[GLib.Signal("discovered")]
+		public event Gst.PbUtils.DiscoveredHandler Discovered {
+			add {
+				this.AddSignalHandler ("discovered", value, typeof (Gst.PbUtils.DiscoveredArgs));
+			}
+			remove {
+				this.RemoveSignalHandler ("discovered", value);
 			}
 		}
 

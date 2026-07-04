@@ -87,6 +87,16 @@ namespace Gst.App {
 			}
 		}
 
+		[GLib.Property ("dropped")]
+		public ulong Dropped {
+			get {
+				GLib.Value val = GetProperty ("dropped");
+				ulong ret = (ulong) val;
+				val.Dispose ();
+				return ret;
+			}
+		}
+
 		[DllImport("gstapp-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
 		static extern ulong gst_app_src_get_duration(IntPtr raw);
 
@@ -150,6 +160,16 @@ namespace Gst.App {
 				GLib.Value val = new GLib.Value(value);
 				SetProperty("handle-segment-change", val);
 				val.Dispose ();
+			}
+		}
+
+		[GLib.Property ("in")]
+		public ulong In {
+			get {
+				GLib.Value val = GetProperty ("in");
+				ulong ret = (ulong) val;
+				val.Dispose ();
+				return ret;
 			}
 		}
 
@@ -285,6 +305,31 @@ namespace Gst.App {
 			}
 		}
 
+		[GLib.Property ("out")]
+		public ulong Out {
+			get {
+				GLib.Value val = GetProperty ("out");
+				ulong ret = (ulong) val;
+				val.Dispose ();
+				return ret;
+			}
+		}
+
+		[GLib.Property ("silent")]
+		public bool Silent {
+			get {
+				GLib.Value val = GetProperty ("silent");
+				bool ret = (bool) val;
+				val.Dispose ();
+				return ret;
+			}
+			set {
+				GLib.Value val = new GLib.Value(value);
+				SetProperty("silent", val);
+				val.Dispose ();
+			}
+		}
+
 		[DllImport("gstapp-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
 		static extern long gst_app_src_get_size(IntPtr raw);
 
@@ -321,13 +366,23 @@ namespace Gst.App {
 			}
 		}
 
-		[GLib.Signal("seek-data")]
-		public event Gst.App.SeekDataHandler SeekData {
+		[GLib.Signal("end-of-stream")]
+		public event Gst.App.EndOfStreamEventHandler EndOfStreamEvent {
 			add {
-				this.AddSignalHandler ("seek-data", value, typeof (Gst.App.SeekDataArgs));
+				this.AddSignalHandler ("end-of-stream", value, typeof (Gst.App.EndOfStreamEventArgs));
 			}
 			remove {
-				this.RemoveSignalHandler ("seek-data", value);
+				this.RemoveSignalHandler ("end-of-stream", value);
+			}
+		}
+
+		[GLib.Signal("push-buffer")]
+		public event Gst.App.PushBufferEventHandler PushBufferEvent {
+			add {
+				this.AddSignalHandler ("push-buffer", value, typeof (Gst.App.PushBufferEventArgs));
+			}
+			remove {
+				this.RemoveSignalHandler ("push-buffer", value);
 			}
 		}
 
@@ -361,26 +416,6 @@ namespace Gst.App {
 			}
 		}
 
-		[GLib.Signal("end-of-stream")]
-		public event Gst.App.EndOfStreamEventHandler EndOfStreamEvent {
-			add {
-				this.AddSignalHandler ("end-of-stream", value, typeof (Gst.App.EndOfStreamEventArgs));
-			}
-			remove {
-				this.RemoveSignalHandler ("end-of-stream", value);
-			}
-		}
-
-		[GLib.Signal("push-buffer")]
-		public event Gst.App.PushBufferEventHandler PushBufferEvent {
-			add {
-				this.AddSignalHandler ("push-buffer", value, typeof (Gst.App.PushBufferEventArgs));
-			}
-			remove {
-				this.RemoveSignalHandler ("push-buffer", value);
-			}
-		}
-
 		[GLib.Signal("push-buffer-list")]
 		public event Gst.App.PushBufferListEventHandler PushBufferListEvent {
 			add {
@@ -388,6 +423,16 @@ namespace Gst.App {
 			}
 			remove {
 				this.RemoveSignalHandler ("push-buffer-list", value);
+			}
+		}
+
+		[GLib.Signal("seek-data")]
+		public event Gst.App.SeekDataHandler SeekData {
+			add {
+				this.AddSignalHandler ("seek-data", value, typeof (Gst.App.SeekDataArgs));
+			}
+			remove {
+				this.RemoveSignalHandler ("seek-data", value);
 			}
 		}
 
@@ -928,6 +973,17 @@ namespace Gst.App {
 
 		public void SetLatency(ulong min, ulong max) {
 			gst_app_src_set_latency(Handle, min, max);
+		}
+
+		[DllImport("gstapp-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
+		static extern void gst_app_src_set_simple_callbacks(IntPtr raw, IntPtr value);
+
+		public Gst.App.AppSrcSimpleCallbacks SimpleCallbacks { 
+			set {
+				IntPtr native_value = GLib.Marshaller.StructureToPtrAlloc (value);
+				gst_app_src_set_simple_callbacks(Handle, native_value);
+				Marshal.FreeHGlobal (native_value);
+			}
 		}
 
 		[DllImport("gstreamer-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]

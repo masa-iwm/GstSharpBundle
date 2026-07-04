@@ -91,113 +91,13 @@ namespace Gst.RtspServer {
 			}
 		}
 
-		[GLib.Signal("play-request")]
-		public event Gst.RtspServer.PlayRequestHandler PlayRequest {
+		[GLib.Signal("pre-closed")]
+		public event System.EventHandler PreClosed {
 			add {
-				this.AddSignalHandler ("play-request", value, typeof (Gst.RtspServer.PlayRequestArgs));
+				this.AddSignalHandler ("pre-closed", value);
 			}
 			remove {
-				this.RemoveSignalHandler ("play-request", value);
-			}
-		}
-
-		[GLib.Signal("pre-setup-request")]
-		public event Gst.RtspServer.PreSetupRequestHandler PreSetupRequest {
-			add {
-				this.AddSignalHandler ("pre-setup-request", value, typeof (Gst.RtspServer.PreSetupRequestArgs));
-			}
-			remove {
-				this.RemoveSignalHandler ("pre-setup-request", value);
-			}
-		}
-
-		[GLib.Signal("pause-request")]
-		public event Gst.RtspServer.PauseRequestHandler PauseRequest {
-			add {
-				this.AddSignalHandler ("pause-request", value, typeof (Gst.RtspServer.PauseRequestArgs));
-			}
-			remove {
-				this.RemoveSignalHandler ("pause-request", value);
-			}
-		}
-
-		[GLib.Signal("describe-request")]
-		public event Gst.RtspServer.DescribeRequestHandler DescribeRequest {
-			add {
-				this.AddSignalHandler ("describe-request", value, typeof (Gst.RtspServer.DescribeRequestArgs));
-			}
-			remove {
-				this.RemoveSignalHandler ("describe-request", value);
-			}
-		}
-
-		[GLib.Signal("teardown-request")]
-		public event Gst.RtspServer.TeardownRequestHandler TeardownRequest {
-			add {
-				this.AddSignalHandler ("teardown-request", value, typeof (Gst.RtspServer.TeardownRequestArgs));
-			}
-			remove {
-				this.RemoveSignalHandler ("teardown-request", value);
-			}
-		}
-
-		[GLib.Signal("setup-request")]
-		public event Gst.RtspServer.SetupRequestHandler SetupRequest {
-			add {
-				this.AddSignalHandler ("setup-request", value, typeof (Gst.RtspServer.SetupRequestArgs));
-			}
-			remove {
-				this.RemoveSignalHandler ("setup-request", value);
-			}
-		}
-
-		[GLib.Signal("pre-get-parameter-request")]
-		public event Gst.RtspServer.PreGetParameterRequestHandler PreGetParameterRequest {
-			add {
-				this.AddSignalHandler ("pre-get-parameter-request", value, typeof (Gst.RtspServer.PreGetParameterRequestArgs));
-			}
-			remove {
-				this.RemoveSignalHandler ("pre-get-parameter-request", value);
-			}
-		}
-
-		[GLib.Signal("pre-record-request")]
-		public event Gst.RtspServer.PreRecordRequestHandler PreRecordRequest {
-			add {
-				this.AddSignalHandler ("pre-record-request", value, typeof (Gst.RtspServer.PreRecordRequestArgs));
-			}
-			remove {
-				this.RemoveSignalHandler ("pre-record-request", value);
-			}
-		}
-
-		[GLib.Signal("new-session")]
-		public event Gst.RtspServer.NewSessionHandler NewSession {
-			add {
-				this.AddSignalHandler ("new-session", value, typeof (Gst.RtspServer.NewSessionArgs));
-			}
-			remove {
-				this.RemoveSignalHandler ("new-session", value);
-			}
-		}
-
-		[GLib.Signal("handle-response")]
-		public event Gst.RtspServer.HandleResponseHandler HandleResponse {
-			add {
-				this.AddSignalHandler ("handle-response", value, typeof (Gst.RtspServer.HandleResponseArgs));
-			}
-			remove {
-				this.RemoveSignalHandler ("handle-response", value);
-			}
-		}
-
-		[GLib.Signal("announce-request")]
-		public event Gst.RtspServer.AnnounceRequestHandler AnnounceRequest {
-			add {
-				this.AddSignalHandler ("announce-request", value, typeof (Gst.RtspServer.AnnounceRequestArgs));
-			}
-			remove {
-				this.RemoveSignalHandler ("announce-request", value);
+				this.RemoveSignalHandler ("pre-closed", value);
 			}
 		}
 
@@ -211,6 +111,16 @@ namespace Gst.RtspServer {
 			}
 		}
 
+		[GLib.Signal("handle-response")]
+		public event Gst.RtspServer.HandleResponseHandler HandleResponse {
+			add {
+				this.AddSignalHandler ("handle-response", value, typeof (Gst.RtspServer.HandleResponseArgs));
+			}
+			remove {
+				this.RemoveSignalHandler ("handle-response", value);
+			}
+		}
+
 		[GLib.Signal("set-parameter-request")]
 		public event Gst.RtspServer.SetParameterRequestHandler SetParameterRequest {
 			add {
@@ -221,63 +131,13 @@ namespace Gst.RtspServer {
 			}
 		}
 
-		[GLib.Signal("send-message")]
-		public event Gst.RtspServer.SendMessageEventHandler SendMessageEvent {
+		[GLib.Signal("pause-request")]
+		public event Gst.RtspServer.PauseRequestHandler PauseRequest {
 			add {
-				this.AddSignalHandler ("send-message", value, typeof (Gst.RtspServer.SendMessageEventArgs));
+				this.AddSignalHandler ("pause-request", value, typeof (Gst.RtspServer.PauseRequestArgs));
 			}
 			remove {
-				this.RemoveSignalHandler ("send-message", value);
-			}
-		}
-
-		[GLib.Signal("pre-pause-request")]
-		public event Gst.RtspServer.PrePauseRequestHandler PrePauseRequest {
-			add {
-				this.AddSignalHandler ("pre-pause-request", value, typeof (Gst.RtspServer.PrePauseRequestArgs));
-			}
-			remove {
-				this.RemoveSignalHandler ("pre-pause-request", value);
-			}
-		}
-
-		[GLib.Signal("pre-set-parameter-request")]
-		public event Gst.RtspServer.PreSetParameterRequestHandler PreSetParameterRequest {
-			add {
-				this.AddSignalHandler ("pre-set-parameter-request", value, typeof (Gst.RtspServer.PreSetParameterRequestArgs));
-			}
-			remove {
-				this.RemoveSignalHandler ("pre-set-parameter-request", value);
-			}
-		}
-
-		[GLib.Signal("pre-describe-request")]
-		public event Gst.RtspServer.PreDescribeRequestHandler PreDescribeRequest {
-			add {
-				this.AddSignalHandler ("pre-describe-request", value, typeof (Gst.RtspServer.PreDescribeRequestArgs));
-			}
-			remove {
-				this.RemoveSignalHandler ("pre-describe-request", value);
-			}
-		}
-
-		[GLib.Signal("pre-play-request")]
-		public event Gst.RtspServer.PrePlayRequestHandler PrePlayRequest {
-			add {
-				this.AddSignalHandler ("pre-play-request", value, typeof (Gst.RtspServer.PrePlayRequestArgs));
-			}
-			remove {
-				this.RemoveSignalHandler ("pre-play-request", value);
-			}
-		}
-
-		[GLib.Signal("pre-announce-request")]
-		public event Gst.RtspServer.PreAnnounceRequestHandler PreAnnounceRequest {
-			add {
-				this.AddSignalHandler ("pre-announce-request", value, typeof (Gst.RtspServer.PreAnnounceRequestArgs));
-			}
-			remove {
-				this.RemoveSignalHandler ("pre-announce-request", value);
+				this.RemoveSignalHandler ("pause-request", value);
 			}
 		}
 
@@ -291,23 +151,53 @@ namespace Gst.RtspServer {
 			}
 		}
 
-		[GLib.Signal("record-request")]
-		public event Gst.RtspServer.RecordRequestHandler RecordRequest {
+		[GLib.Signal("describe-request")]
+		public event Gst.RtspServer.DescribeRequestHandler DescribeRequest {
 			add {
-				this.AddSignalHandler ("record-request", value, typeof (Gst.RtspServer.RecordRequestArgs));
+				this.AddSignalHandler ("describe-request", value, typeof (Gst.RtspServer.DescribeRequestArgs));
 			}
 			remove {
-				this.RemoveSignalHandler ("record-request", value);
+				this.RemoveSignalHandler ("describe-request", value);
 			}
 		}
 
-		[GLib.Signal("closed")]
-		public event System.EventHandler Closed {
+		[GLib.Signal("announce-request")]
+		public event Gst.RtspServer.AnnounceRequestHandler AnnounceRequest {
 			add {
-				this.AddSignalHandler ("closed", value);
+				this.AddSignalHandler ("announce-request", value, typeof (Gst.RtspServer.AnnounceRequestArgs));
 			}
 			remove {
-				this.RemoveSignalHandler ("closed", value);
+				this.RemoveSignalHandler ("announce-request", value);
+			}
+		}
+
+		[GLib.Signal("new-session")]
+		public event Gst.RtspServer.NewSessionHandler NewSession {
+			add {
+				this.AddSignalHandler ("new-session", value, typeof (Gst.RtspServer.NewSessionArgs));
+			}
+			remove {
+				this.RemoveSignalHandler ("new-session", value);
+			}
+		}
+
+		[GLib.Signal("pre-setup-request")]
+		public event Gst.RtspServer.PreSetupRequestHandler PreSetupRequest {
+			add {
+				this.AddSignalHandler ("pre-setup-request", value, typeof (Gst.RtspServer.PreSetupRequestArgs));
+			}
+			remove {
+				this.RemoveSignalHandler ("pre-setup-request", value);
+			}
+		}
+
+		[GLib.Signal("pre-describe-request")]
+		public event Gst.RtspServer.PreDescribeRequestHandler PreDescribeRequest {
+			add {
+				this.AddSignalHandler ("pre-describe-request", value, typeof (Gst.RtspServer.PreDescribeRequestArgs));
+			}
+			remove {
+				this.RemoveSignalHandler ("pre-describe-request", value);
 			}
 		}
 
@@ -321,6 +211,76 @@ namespace Gst.RtspServer {
 			}
 		}
 
+		[GLib.Signal("play-request")]
+		public event Gst.RtspServer.PlayRequestHandler PlayRequest {
+			add {
+				this.AddSignalHandler ("play-request", value, typeof (Gst.RtspServer.PlayRequestArgs));
+			}
+			remove {
+				this.RemoveSignalHandler ("play-request", value);
+			}
+		}
+
+		[GLib.Signal("teardown-request")]
+		public event Gst.RtspServer.TeardownRequestHandler TeardownRequest {
+			add {
+				this.AddSignalHandler ("teardown-request", value, typeof (Gst.RtspServer.TeardownRequestArgs));
+			}
+			remove {
+				this.RemoveSignalHandler ("teardown-request", value);
+			}
+		}
+
+		[GLib.Signal("closed")]
+		public event System.EventHandler Closed {
+			add {
+				this.AddSignalHandler ("closed", value);
+			}
+			remove {
+				this.RemoveSignalHandler ("closed", value);
+			}
+		}
+
+		[GLib.Signal("pre-record-request")]
+		public event Gst.RtspServer.PreRecordRequestHandler PreRecordRequest {
+			add {
+				this.AddSignalHandler ("pre-record-request", value, typeof (Gst.RtspServer.PreRecordRequestArgs));
+			}
+			remove {
+				this.RemoveSignalHandler ("pre-record-request", value);
+			}
+		}
+
+		[GLib.Signal("pre-set-parameter-request")]
+		public event Gst.RtspServer.PreSetParameterRequestHandler PreSetParameterRequest {
+			add {
+				this.AddSignalHandler ("pre-set-parameter-request", value, typeof (Gst.RtspServer.PreSetParameterRequestArgs));
+			}
+			remove {
+				this.RemoveSignalHandler ("pre-set-parameter-request", value);
+			}
+		}
+
+		[GLib.Signal("pre-play-request")]
+		public event Gst.RtspServer.PrePlayRequestHandler PrePlayRequest {
+			add {
+				this.AddSignalHandler ("pre-play-request", value, typeof (Gst.RtspServer.PrePlayRequestArgs));
+			}
+			remove {
+				this.RemoveSignalHandler ("pre-play-request", value);
+			}
+		}
+
+		[GLib.Signal("send-message")]
+		public event Gst.RtspServer.SendMessageEventHandler SendMessageEvent {
+			add {
+				this.AddSignalHandler ("send-message", value, typeof (Gst.RtspServer.SendMessageEventArgs));
+			}
+			remove {
+				this.RemoveSignalHandler ("send-message", value);
+			}
+		}
+
 		[GLib.Signal("options-request")]
 		public event Gst.RtspServer.OptionsRequestHandler OptionsRequest {
 			add {
@@ -329,6 +289,105 @@ namespace Gst.RtspServer {
 			remove {
 				this.RemoveSignalHandler ("options-request", value);
 			}
+		}
+
+		[GLib.Signal("setup-request")]
+		public event Gst.RtspServer.SetupRequestHandler SetupRequest {
+			add {
+				this.AddSignalHandler ("setup-request", value, typeof (Gst.RtspServer.SetupRequestArgs));
+			}
+			remove {
+				this.RemoveSignalHandler ("setup-request", value);
+			}
+		}
+
+		[GLib.Signal("record-request")]
+		public event Gst.RtspServer.RecordRequestHandler RecordRequest {
+			add {
+				this.AddSignalHandler ("record-request", value, typeof (Gst.RtspServer.RecordRequestArgs));
+			}
+			remove {
+				this.RemoveSignalHandler ("record-request", value);
+			}
+		}
+
+		[GLib.Signal("pre-announce-request")]
+		public event Gst.RtspServer.PreAnnounceRequestHandler PreAnnounceRequest {
+			add {
+				this.AddSignalHandler ("pre-announce-request", value, typeof (Gst.RtspServer.PreAnnounceRequestArgs));
+			}
+			remove {
+				this.RemoveSignalHandler ("pre-announce-request", value);
+			}
+		}
+
+		[GLib.Signal("pre-pause-request")]
+		public event Gst.RtspServer.PrePauseRequestHandler PrePauseRequest {
+			add {
+				this.AddSignalHandler ("pre-pause-request", value, typeof (Gst.RtspServer.PrePauseRequestArgs));
+			}
+			remove {
+				this.RemoveSignalHandler ("pre-pause-request", value);
+			}
+		}
+
+		[GLib.Signal("pre-get-parameter-request")]
+		public event Gst.RtspServer.PreGetParameterRequestHandler PreGetParameterRequest {
+			add {
+				this.AddSignalHandler ("pre-get-parameter-request", value, typeof (Gst.RtspServer.PreGetParameterRequestArgs));
+			}
+			remove {
+				this.RemoveSignalHandler ("pre-get-parameter-request", value);
+			}
+		}
+
+		static PreClosedNativeDelegate PreClosed_cb_delegate;
+		static PreClosedNativeDelegate PreClosedVMCallback {
+			get {
+				if (PreClosed_cb_delegate == null)
+					PreClosed_cb_delegate = new PreClosedNativeDelegate (PreClosed_cb);
+				return PreClosed_cb_delegate;
+			}
+		}
+
+		static void OverridePreClosed (GLib.GType gtype)
+		{
+			OverridePreClosed (gtype, PreClosedVMCallback);
+		}
+
+		static void OverridePreClosed (GLib.GType gtype, PreClosedNativeDelegate callback)
+		{
+			OverrideVirtualMethod (gtype, "pre-closed", callback);
+		}
+		[UnmanagedFunctionPointer (CallingConvention.Cdecl)]
+		delegate void PreClosedNativeDelegate (IntPtr inst);
+
+		static void PreClosed_cb (IntPtr inst)
+		{
+			try {
+				RTSPClient __obj = GLib.Object.GetObject (inst, false) as RTSPClient;
+				__obj.OnPreClosed ();
+			} catch (Exception e) {
+				GLib.ExceptionManager.RaiseUnhandledException (e, false);
+			}
+		}
+
+		[GLib.DefaultSignalHandler(Type=typeof(Gst.RtspServer.RTSPClient), ConnectionMethod="OverridePreClosed")]
+		protected virtual void OnPreClosed ()
+		{
+			InternalPreClosed ();
+		}
+
+		private void InternalPreClosed ()
+		{
+			GLib.Value ret = GLib.Value.Empty;
+			GLib.ValueArray inst_and_params = new GLib.ValueArray (1);
+			GLib.Value[] vals = new GLib.Value [1];
+			vals [0] = new GLib.Value (this);
+			inst_and_params.Append (vals [0]);
+			g_signal_chain_from_overridden (inst_and_params.ArrayPtr, ref ret);
+			foreach (GLib.Value v in vals)
+				v.Dispose ();
 		}
 
 		static CreateSdpNativeDelegate CreateSdp_cb_delegate;

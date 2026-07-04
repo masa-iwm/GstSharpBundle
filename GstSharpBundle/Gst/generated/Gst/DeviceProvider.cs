@@ -29,16 +29,6 @@ namespace Gst {
 			}
 		}
 
-		[GLib.Signal("provider-unhidden")]
-		public event Gst.ProviderUnhiddenHandler ProviderUnhidden {
-			add {
-				this.AddSignalHandler ("provider-unhidden", value, typeof (Gst.ProviderUnhiddenArgs));
-			}
-			remove {
-				this.RemoveSignalHandler ("provider-unhidden", value);
-			}
-		}
-
 		[GLib.Signal("provider-hidden")]
 		public event Gst.ProviderHiddenHandler ProviderHidden {
 			add {
@@ -46,6 +36,16 @@ namespace Gst {
 			}
 			remove {
 				this.RemoveSignalHandler ("provider-hidden", value);
+			}
+		}
+
+		[GLib.Signal("provider-unhidden")]
+		public event Gst.ProviderUnhiddenHandler ProviderUnhidden {
+			add {
+				this.AddSignalHandler ("provider-unhidden", value, typeof (Gst.ProviderUnhiddenArgs));
+			}
+			remove {
+				this.RemoveSignalHandler ("provider-unhidden", value);
 			}
 		}
 

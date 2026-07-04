@@ -120,9 +120,30 @@ namespace Gst {
 		[DllImport("gstreamer-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
 		static extern bool gst_event_has_name_id(IntPtr raw, uint name);
 
+		[Obsolete]
 		public bool HasNameId(uint name) {
 			bool raw_ret = gst_event_has_name_id(Handle, name);
 			bool ret = raw_ret;
+			return ret;
+		}
+
+		[DllImport("gstreamer-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
+		static extern bool gst_event_is_writable(IntPtr raw);
+
+		public new bool IsWritable { 
+			get {
+				bool raw_ret = gst_event_is_writable(Handle);
+				bool ret = raw_ret;
+				return ret;
+			}
+		}
+
+		[DllImport("gstreamer-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
+		static extern IntPtr gst_event_make_writable(IntPtr raw);
+
+		public Gst.Event MakeWritable() {
+			IntPtr raw_ret = gst_event_make_writable(Handle);
+			Gst.Event ret = raw_ret == IntPtr.Zero ? null : (Gst.Event) GLib.Opaque.GetOpaque (raw_ret, typeof (Gst.Event), true);
 			return ret;
 		}
 

@@ -133,23 +133,13 @@ namespace Gst.WebRTC {
 			}
 		}
 
-		[GLib.Signal("on-error")]
-		public event Gst.WebRTC.OnErrorHandler OnError {
+		[GLib.Signal("on-buffered-amount-low")]
+		public event System.EventHandler OnBufferedAmountLow {
 			add {
-				this.AddSignalHandler ("on-error", value, typeof (Gst.WebRTC.OnErrorArgs));
+				this.AddSignalHandler ("on-buffered-amount-low", value);
 			}
 			remove {
-				this.RemoveSignalHandler ("on-error", value);
-			}
-		}
-
-		[GLib.Signal("send-string")]
-		public event Gst.WebRTC.SendStringEventHandler SendStringEvent {
-			add {
-				this.AddSignalHandler ("send-string", value, typeof (Gst.WebRTC.SendStringEventArgs));
-			}
-			remove {
-				this.RemoveSignalHandler ("send-string", value);
+				this.RemoveSignalHandler ("on-buffered-amount-low", value);
 			}
 		}
 
@@ -163,16 +153,6 @@ namespace Gst.WebRTC {
 			}
 		}
 
-		[GLib.Signal("close")]
-		public event System.EventHandler CloseEvent {
-			add {
-				this.AddSignalHandler ("close", value);
-			}
-			remove {
-				this.RemoveSignalHandler ("close", value);
-			}
-		}
-
 		[GLib.Signal("on-message-data")]
 		public event Gst.WebRTC.OnMessageDataHandler OnMessageData {
 			add {
@@ -183,13 +163,13 @@ namespace Gst.WebRTC {
 			}
 		}
 
-		[GLib.Signal("on-buffered-amount-low")]
-		public event System.EventHandler OnBufferedAmountLow {
+		[GLib.Signal("send-string")]
+		public event Gst.WebRTC.SendStringEventHandler SendStringEvent {
 			add {
-				this.AddSignalHandler ("on-buffered-amount-low", value);
+				this.AddSignalHandler ("send-string", value, typeof (Gst.WebRTC.SendStringEventArgs));
 			}
 			remove {
-				this.RemoveSignalHandler ("on-buffered-amount-low", value);
+				this.RemoveSignalHandler ("send-string", value);
 			}
 		}
 
@@ -203,6 +183,16 @@ namespace Gst.WebRTC {
 			}
 		}
 
+		[GLib.Signal("on-error")]
+		public event Gst.WebRTC.OnErrorHandler OnError {
+			add {
+				this.AddSignalHandler ("on-error", value, typeof (Gst.WebRTC.OnErrorArgs));
+			}
+			remove {
+				this.RemoveSignalHandler ("on-error", value);
+			}
+		}
+
 		[GLib.Signal("on-message-string")]
 		public event Gst.WebRTC.OnMessageStringHandler OnMessageString {
 			add {
@@ -210,6 +200,16 @@ namespace Gst.WebRTC {
 			}
 			remove {
 				this.RemoveSignalHandler ("on-message-string", value);
+			}
+		}
+
+		[GLib.Signal("close")]
+		public event System.EventHandler CloseEvent {
+			add {
+				this.AddSignalHandler ("close", value);
+			}
+			remove {
+				this.RemoveSignalHandler ("close", value);
 			}
 		}
 
@@ -651,6 +651,7 @@ namespace Gst.WebRTC {
 		[DllImport("gstwebrtc-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
 		static extern void gst_webrtc_data_channel_send_data(IntPtr raw, IntPtr data);
 
+		[Obsolete]
 		public void SendData(GLib.Bytes data) {
 			gst_webrtc_data_channel_send_data(Handle, data == null ? IntPtr.Zero : data.Handle);
 		}
@@ -677,6 +678,7 @@ namespace Gst.WebRTC {
 		[DllImport("gstwebrtc-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
 		static extern void gst_webrtc_data_channel_send_string(IntPtr raw, IntPtr str);
 
+		[Obsolete]
 		public void SendString(string str) {
 			IntPtr native_str = GLib.Marshaller.StringToPtrGStrdup (str);
 			gst_webrtc_data_channel_send_string(Handle, native_str);

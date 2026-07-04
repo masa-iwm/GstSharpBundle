@@ -151,6 +151,16 @@ namespace Gst {
 			}
 		}
 
+		[GLib.Signal("element-added")]
+		public event Gst.ElementAddedHandler ElementAdded {
+			add {
+				this.AddSignalHandler ("element-added", value, typeof (Gst.ElementAddedArgs));
+			}
+			remove {
+				this.RemoveSignalHandler ("element-added", value);
+			}
+		}
+
 		[GLib.Signal("deep-element-added")]
 		public event Gst.DeepElementAddedHandler DeepElementAdded {
 			add {
@@ -161,13 +171,13 @@ namespace Gst {
 			}
 		}
 
-		[GLib.Signal("deep-element-removed")]
-		public event Gst.DeepElementRemovedHandler DeepElementRemoved {
+		[GLib.Signal("element-removed")]
+		public event Gst.ElementRemovedHandler ElementRemoved {
 			add {
-				this.AddSignalHandler ("deep-element-removed", value, typeof (Gst.DeepElementRemovedArgs));
+				this.AddSignalHandler ("element-removed", value, typeof (Gst.ElementRemovedArgs));
 			}
 			remove {
-				this.RemoveSignalHandler ("deep-element-removed", value);
+				this.RemoveSignalHandler ("element-removed", value);
 			}
 		}
 
@@ -181,23 +191,13 @@ namespace Gst {
 			}
 		}
 
-		[GLib.Signal("element-added")]
-		public event Gst.ElementAddedHandler ElementAdded {
+		[GLib.Signal("deep-element-removed")]
+		public event Gst.DeepElementRemovedHandler DeepElementRemoved {
 			add {
-				this.AddSignalHandler ("element-added", value, typeof (Gst.ElementAddedArgs));
+				this.AddSignalHandler ("deep-element-removed", value, typeof (Gst.DeepElementRemovedArgs));
 			}
 			remove {
-				this.RemoveSignalHandler ("element-added", value);
-			}
-		}
-
-		[GLib.Signal("element-removed")]
-		public event Gst.ElementRemovedHandler ElementRemoved {
-			add {
-				this.AddSignalHandler ("element-removed", value, typeof (Gst.ElementRemovedArgs));
-			}
-			remove {
-				this.RemoveSignalHandler ("element-removed", value);
+				this.RemoveSignalHandler ("deep-element-removed", value);
 			}
 		}
 
