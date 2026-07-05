@@ -16,8 +16,7 @@
 // 02110-1301  USA
 
 namespace Gst {
-
-	using System;
+    using System;
 	using System.Runtime.InteropServices;
 
 	partial class MiniObject {
@@ -52,5 +51,47 @@ namespace Gst {
 				Unref(raw);
 		}
 
-	}
+        [DllImport("gstreamer-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr gst_mini_object_ref(IntPtr mini_object);
+
+        protected override void Ref(IntPtr raw)
+        {
+            if (!Owned)
+            {
+                gst_mini_object_ref(raw);
+                Owned = true;
+            }
+        }
+
+        [DllImport("gstreamer-1.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
+        static extern void gst_mini_object_unref(IntPtr mini_object);
+        protected override void Unref(IntPtr raw)
+        {
+            if (Owned)
+            {
+                gst_mini_object_unref(raw);
+                Owned = false;
+            }
+        }
+
+        protected override Action<IntPtr> DisposeUnmanagedFunc
+        {
+            get
+            {
+                return gst_mini_object_unref;
+            }
+        }
+
+        delegate nint GstMiniObjectCopyFunction(nint ojb);
+
+        protected override GLib.Opaque Copy(nint raw)
+        {
+            raw = Marshal.GetDelegateForFunctionPointer<GstMiniObjectCopyFunction>(CopyFunc)(raw);
+            this.Raw = raw;
+            gst_mini_object_unref(raw);
+            this.Owned = true;
+            return this;
+        }
+
+    }
 }
